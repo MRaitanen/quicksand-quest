@@ -164,20 +164,20 @@ TextureImporter:
       name: NpcIdle_0
       rect:
         serializedVersion: 2
-        x: 81
+        x: 0
         y: 0
-        width: 439
-        height: 779
+        width: 600
+        height: 900
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: de38fda96fafc9ba0800000000000000
-      internalID: -6080709459789773843
+      spriteID: 432eb058cd5b0bb45841c4c2ad6e4c6c
+      internalID: -747815261
       vertices: []
       indices: 
       edges: []
@@ -186,20 +186,20 @@ TextureImporter:
       name: NpcIdle_1
       rect:
         serializedVersion: 2
-        x: 675
+        x: 600
         y: 0
-        width: 450
-        height: 778
+        width: 600
+        height: 900
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 032b07b82e4888790800000000000000
-      internalID: -7527620668612890064
+      spriteID: eec8b72890351bb4e8181d79c7349f9d
+      internalID: 1610988805
       vertices: []
       indices: 
       edges: []
@@ -208,20 +208,20 @@ TextureImporter:
       name: NpcIdle_2
       rect:
         serializedVersion: 2
-        x: 1281
+        x: 1200
         y: 0
-        width: 439
-        height: 768
+        width: 600
+        height: 900
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cb7c1b36e344af1b0800000000000000
-      internalID: -5622106150067386436
+      spriteID: 5b8569249b9ea38419dd96c6d8a38805
+      internalID: 938067112
       vertices: []
       indices: 
       edges: []
@@ -230,20 +230,20 @@ TextureImporter:
       name: NpcIdle_3
       rect:
         serializedVersion: 2
-        x: 1875
+        x: 1800
         y: 0
-        width: 450
-        height: 778
+        width: 600
+        height: 900
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5afca4dab58549270800000000000000
-      internalID: 8256321167649591205
+      spriteID: 3f1f5de67c5127f4da7483a2192bf8de
+      internalID: -261847480
       vertices: []
       indices: 
       edges: []
@@ -252,7 +252,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 83ae4af6ea0f43e48a8666bf8e8ca7c5
     internalID: 0
     vertices: []
     indices: 
@@ -261,7 +261,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      NpcIdle_0: -747815261
+      NpcIdle_1: 1610988805
+      NpcIdle_2: 938067112
+      NpcIdle_3: -261847480
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
