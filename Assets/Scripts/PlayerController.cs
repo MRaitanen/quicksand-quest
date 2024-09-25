@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour
     // Components
     private Rigidbody2D _rb;
 
+    // TODO: Animations
+    // TODO: Camera follow
+
     private void Awake()
     {
         // Attempt to get the Rigidbody2D component; add it if not found
