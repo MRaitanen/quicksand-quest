@@ -22,6 +22,17 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Offset for the ground check")]
     [SerializeField] private Vector2 groundCheckOffset = new Vector2(0f, -0.5f);
 
+    [Header("Camera follow")]
+    [Tooltip("Reference to the camera to follow the player")]
+    [SerializeField] private Camera mainCamera;
+    [Tooltip("Offset for the camera follow")]
+    [SerializeField] private Vector3 cameraOffset = new Vector3(0f, 0f, -10f);
+    [Tooltip("Speed for the camera follow")]
+    [SerializeField] private float cameraSpeed = 5f;
+    [Tooltip("Minimum and maximum camera position")]
+    [SerializeField] private Vector2 cameraMinPosition = new Vector2(-100f, -100f);
+    [SerializeField] private Vector2 cameraMaxPosition = new Vector2(100f, 100f);
+
     // Variables 
     private float _coyoteTimeCounter;
     private bool _grounded;
@@ -45,7 +56,6 @@ public class PlayerController : MonoBehaviour
         GroundCheck();
 
         // TODO: Handle animations
-        // TODO: Handle camera follow
     }
 
     private void FixedUpdate()
@@ -53,6 +63,7 @@ public class PlayerController : MonoBehaviour
         // Call movement and falling logic in FixedUpdate for consistent physics behavior
         HandleMovement();
         Falling();
+        CameraFollow();
     }
 
     [BurstCompile]
@@ -140,6 +151,22 @@ public class PlayerController : MonoBehaviour
             // Reset interpolation
             _rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         }
+    }
+
+    [BurstCompile] // Optimize camera follow with Burst
+    private void CameraFollow()
+    {
+        // Calculate the target position for the camera
+        Vector3 targetPosition = transform.position + cameraOffset;
+
+        // Smoothly move the camera towards the target position
+        mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetPosition, cameraSpeed * Time.deltaTime);
+
+        // Clamp the camera position within the min and max values
+        Vector3 clampedPosition = mainCamera.transform.position;
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, cameraMinPosition.x, cameraMaxPosition.x);
+        clampedPosition.y = Mathf.Clamp(clampedPosition.y, cameraMinPosition.y, cameraMaxPosition.y);
+        mainCamera.transform.position = clampedPosition;
     }
 
     // This will only be visible in the Unity Editor and is used for debugging purposes
