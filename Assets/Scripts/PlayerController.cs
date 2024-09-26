@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 12f;
     [Tooltip("Time allowed to jump after leaving the ground")]
     [SerializeField] private float coyoteTimeDuration = 0.2f;
+    [Tooltip("Multiplier for gravity when falling")]
+    [SerializeField] private float fallMultiplier = 2.5f;
 
     [Header("Ground check")]
     [Tooltip("Layer for ground detection")]
@@ -24,9 +26,6 @@ public class PlayerController : MonoBehaviour
     // Components
     private Rigidbody2D _rb;
 
-    // TODO: Animations
-    // TODO: Camera follow
-
     private void Awake()
     {
         // Attempt to get the Rigidbody2D component; add it if not found
@@ -41,6 +40,10 @@ public class PlayerController : MonoBehaviour
         HandleJump();
         UpdateCoyoteTime();
         GroundCheck();
+        Falling();
+
+        // TODO: Handle animations
+        // TODO: Handle camera follow
     }
 
     private void HandleMovement()
@@ -68,6 +71,16 @@ public class PlayerController : MonoBehaviour
                 _rb.linearVelocity = new Vector2(_rb.linearVelocityX, jumpForce);
                 _grounded = false;
             }
+        }
+    }
+
+    private void Falling()
+    {
+        // Check if the player is falling
+        if (_rb.linearVelocityY < 0)
+        {
+            // Apply extra gravity when falling
+            _rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
     }
 
