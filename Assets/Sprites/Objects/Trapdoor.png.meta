@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Trapdoor_0: 765156946687646068
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
