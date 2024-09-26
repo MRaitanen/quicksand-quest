@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 12f;
     [Tooltip("Time allowed to jump after leaving the ground")]
     [SerializeField] private float coyoteTimeDuration = 0.2f;
+    [Tooltip("Multiplier for jump height when jump button is released early")]
+    [SerializeField] private float jumpCutMultiplier = 0.5f;
     [Tooltip("Multiplier for gravity when falling")]
     [SerializeField] private float fallMultiplier = 2.5f;
 
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     // Variables 
     private float _coyoteTimeCounter;
     private bool _grounded;
+    private bool _jumpPressed;
 
     // Components
     private Rigidbody2D _rb;
@@ -69,8 +72,20 @@ public class PlayerController : MonoBehaviour
             {
                 // Set jump velocity
                 _rb.linearVelocity = new Vector2(_rb.linearVelocityX, jumpForce);
-                _grounded = false;
+                _jumpPressed = true;
             }
+        }
+
+        // Check for cut cut when player releases the jump button
+        if (Input.GetButtonUp("Jump") && _jumpPressed)
+        {
+            // Check if the player is still ascending
+            if (_rb.linearVelocityY > 0)
+            {
+                // Reduce the jump velocity
+                _rb.linearVelocity = new Vector2(_rb.linearVelocityX, _rb.linearVelocityY * jumpCutMultiplier);
+            }
+            _jumpPressed = false;
         }
     }
 
