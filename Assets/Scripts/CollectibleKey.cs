@@ -7,7 +7,7 @@ public class CollectibleKey : MonoBehaviour
     private void Awake()
     {
         // Get the GameManager instance
-        _gm = GameManager.Instance;
+        _gm = FindAnyObjectByType<GameManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

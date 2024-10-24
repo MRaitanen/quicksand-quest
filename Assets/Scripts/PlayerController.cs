@@ -30,22 +30,32 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Speed for the camera follow")]
     [SerializeField] private float cameraSpeed = 5f;
     [Tooltip("Minimum and maximum camera position")]
-    [SerializeField] private Vector2 cameraMinPosition = new Vector2(-100f, -100f);
-    [SerializeField] private Vector2 cameraMaxPosition = new Vector2(100f, 100f);
+    [SerializeField] public Vector2 cameraMinPosition = new Vector2(-100f, -100f);
+    [SerializeField] public Vector2 cameraMaxPosition = new Vector2(100f, 100f);
 
     // Variables 
     private float _coyoteTimeCounter;
     private bool _grounded;
     private bool _jumpPressed;
 
+    // Animator variables
+    private static readonly int _animSpeed = Animator.StringToHash("Speed");
+    private static readonly int _animJump = Animator.StringToHash("Jump");
+    private static readonly int _animFall = Animator.StringToHash("Fall");
+
     // Components
     private Rigidbody2D _rb;
+    private Animator _anim;
 
     private void Awake()
     {
         // Attempt to get the Rigidbody2D component; add it if not found
         if (!TryGetComponent<Rigidbody2D>(out _rb))
             _rb = gameObject.AddComponent<Rigidbody2D>();
+
+        // Attempt to get the Animator component; disable animations if not found
+        if (!TryGetComponent<Animator>(out _anim))
+            Debug.LogWarning("Animator component not found. Disabling animations.");
     }
 
     private void Update()
@@ -55,7 +65,8 @@ public class PlayerController : MonoBehaviour
         UpdateCoyoteTime();
         GroundCheck();
 
-        // TODO: Handle animations
+        if (_anim != null)
+            HandleAnimations();
     }
 
     private void FixedUpdate()
@@ -169,16 +180,15 @@ public class PlayerController : MonoBehaviour
         mainCamera.transform.position = clampedPosition;
     }
 
-    // This will only be visible in the Unity Editor and is used for debugging purposes
-    void OnDrawGizmos()
+    private void HandleAnimations()
     {
-        // Calculate position for the ground check box cast
-        Vector2 boxCastPosition = (Vector2)transform.position + groundCheckOffset;
+        // Set the "Speed" parameter in the Animator to the absolute value of horizontal input
+        _anim.SetFloat(_animSpeed, Mathf.Abs(Input.GetAxis("Horizontal")));
 
-        // Set the Gizmos color for visualization
-        Gizmos.color = Color.red;
+        // Set the "Jump" parameter in the Animator based on the player's grounded status
+        _anim.SetBool(_animJump, !_grounded);
 
-        // Draw the box at the calculated position to visualize the ground check
-        Gizmos.DrawWireCube(boxCastPosition, boxSize);
+        // Set the "Fall" parameter in the Animator based on the player's falling status
+        _anim.SetBool(_animFall, _rb.linearVelocity.y < -0.1f);
     }
 }

@@ -26,4 +26,16 @@ public class GameManager : MonoBehaviour
     {
         keysCollected++;
     }
+
+    public void EnterDoor(int requiredKeys)
+    {
+        if (keysCollected >= requiredKeys)
+        {
+            Debug.Log("Door unlocked!");
+        }
+        else
+        {
+            Debug.Log("Not enough keys!");
+        }
+    }
 }
